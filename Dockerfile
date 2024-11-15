@@ -32,8 +32,10 @@ RUN wget https://storage.googleapis.com/chrome-for-testing-public/133.0.6836.0/l
     ls -lh chromedriver.zip && \
     unzip chromedriver.zip -d /usr/local/bin && \
     ls -lh /usr/local/bin && \
-    # 确认解压后的文件是否存在
-    ls -lh /usr/local/bin/chromedriver && \
+    # 检查解压后的内容
+    ls -lh /usr/local/bin && \
+    # 如果 chromedriver 在子目录中，输出详细信息
+    ls -lh /usr/local/bin/* && \
     chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver.zip
 
