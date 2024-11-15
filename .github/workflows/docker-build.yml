@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main # 你可以根据需要更改触发条件，如 `main` 分支
+      - main  # 根据需要调整触发的分支
 
 jobs:
   build:
@@ -22,14 +22,13 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}  # 你的 Docker Hub 用户名
-        password: ${{ secrets.DOCKER_PASSWORD }}  # 你的 Docker Hub 密码
+        username: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub 用户名
+        password: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub 密码或令牌
 
     # 4. 构建 Docker 镜像
     - name: Build Docker image
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest .
-
 
     # 5. 推送 Docker 镜像到 Docker Hub
     - name: Push Docker image
