@@ -20,23 +20,14 @@ RUN apt-get update && apt-get install -y \
 # 创建目录
 RUN mkdir -p /opt/google/chrome /usr/local/bin
 
-# 下载并解压 Chrome 浏览器
-RUN wget https://storage.googleapis.com/chrome-for-testing-public/133.0.6836.0/linux64/chrome-linux64.zip -O chrome.zip && \
-    ls -lh chrome.zip && \
-    unzip chrome.zip -d /opt/google/chrome && \
-    ls -lh /opt/google/chrome && \
-    rm chrome.zip
+# 下载并解压 Chrome 浏览器（官方链接）
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome.deb && \
+    apt-get install -y ./chrome.deb && \
+    rm chrome.deb
 
-# 下载并解压 ChromeDriver
-RUN wget https://storage.googleapis.com/chrome-for-testing-public/133.0.6836.0/linux64/chromedriver-linux64.zip -O chromedriver.zip && \
-    ls -lh chromedriver.zip && \
+# 下载并解压 ChromeDriver（官方链接）
+RUN wget https://chromedriver.storage.googleapis.com/113.0.5672.63/chromedriver_linux64.zip -O chromedriver.zip && \
     unzip chromedriver.zip -d /usr/local/bin && \
-    ls -lh /usr/local/bin && \
-    # 检查解压后的内容
-    ls -lh /usr/local/bin && \
-    # 如果 chromedriver 在子目录中，输出详细信息
-    ls -lh /usr/local/bin/* && \
-    chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver.zip
 
 # 设置 Chrome 和 ChromeDriver 路径
