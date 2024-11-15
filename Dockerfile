@@ -18,13 +18,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 使用新的链接下载 Chrome 浏览器并安装
-RUN wget https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.69/linux64/chrome-linux64.zip && \
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.69/linux64/chrome-linux64.zip -O chrome.zip && \
     unzip chrome.zip && \
     mv chrome-linux64 /opt/google/chrome && \
     rm chrome.zip
 
 # 使用新的链接下载 ChromeDriver 并安装
-RUN wget https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.69/linux64/chromedriver-linux64.zip && \
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.69/linux64/chromedriver-linux64.zip -O chromedriver.zip && \
     unzip chromedriver.zip && \
     mv chromedriver /usr/local/bin/chromedriver && \
     chmod +x /usr/local/bin/chromedriver && \
