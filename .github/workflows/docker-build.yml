@@ -3,34 +3,32 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main  # 根据需要调整触发的分支
+      - main  # 监听 main 分支的推送操作
+    paths:
+      - Dockerfile  # 仅在 Dockerfile 修改时触发
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. 检出代码
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # 检出仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # 2. 设置 Docker Buildx
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      # 登录 Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    # 3. 登录 Docker Hub
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub 用户名
-        password: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub 密码或令牌
+      # 构建 Docker 镜像
+      - name: Build Docker Image
+        run: |
+          docker build -t memorycollection/iptv:latest .
 
-    # 4. 构建 Docker 镜像
-    - name: Build Docker image
-      run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/iptv:latest .
-
-    # 5. 推送 Docker 镜像到 Docker Hub
-    - name: Push Docker image
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/iptv:latest
+      # 推送 Docker 镜像到 Docker Hub
+      - name: Push Docker Image
+        run: |
+          docker push memorycollection/iptv:latest
