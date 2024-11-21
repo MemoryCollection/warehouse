@@ -9,7 +9,9 @@ RUN apt-get -yqq update && \
     apt-get -yqq install --no-install-recommends \
     curl unzip gnupg wget libglib2.0-0 libx11-6 libnss3 \
     libgdk-pixbuf2.0-0 libx11-xcb1 libxcomposite1 libxrandr2 \
-    libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 libdrm2 && \
+    libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 libdrm2 \
+    fonts-liberation libappindicator3-1 libnspr4 libnss3 libxss1 \
+    libgbm1 && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Chrome WebDriver
@@ -31,7 +33,7 @@ WORKDIR /app
 COPY app /app
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt && pip install --no-cache-dir selenium
 
 # Set container to idle on start (or modify to start your application)
 CMD ["tail", "-f", "/dev/null"]
