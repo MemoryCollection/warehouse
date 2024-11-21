@@ -1,7 +1,7 @@
 FROM python:latest
 
 # Set the Chrome version
-ENV CHROME_VERSION 126.0.6478.61
+ENV CHROME_VERSION 131.0.6778.85
 ENV CHROMEDRIVER_VERSION ${CHROME_VERSION}
 
 # Install required tools and libraries
@@ -18,8 +18,8 @@ RUN mkdir -p /opt/chromedriver-${CHROMEDRIVER_VERSION} && \
     chmod +x /opt/chromedriver-${CHROMEDRIVER_VERSION}/chromedriver-linux64/chromedriver && \
     ln -fs /opt/chromedriver-${CHROMEDRIVER_VERSION}/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 
-# Install Google Chrome
-RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_${CHROME_VERSION}-1_amd64.deb && \
+# Install Google Chrome version 131.0.6778.85
+RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_131.0.6778.85-1_amd64.deb && \
     apt install -y /tmp/chrome.deb && \
     rm /tmp/chrome.deb
 
