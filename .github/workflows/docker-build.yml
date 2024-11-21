@@ -35,6 +35,10 @@ jobs:
           options.add_argument("--headless")  # 无头模式
           options.add_argument("--no-sandbox")
           options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--remote-debugging-port=9222")
+          options.add_argument("--disable-gpu")
+          options.add_argument("--disable-software-rasterizer")
+          options.add_argument("--start-maximized")
           driver = webdriver.Chrome(options=options)
           driver.get("https://www.google.com")
           print("Successfully opened Google!")
