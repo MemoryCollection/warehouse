@@ -1,11 +1,7 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - main  # 监听 main 分支的推送操作
-    paths:
-      - Dockerfile  # 仅在 Dockerfile 修改时触发
+  workflow_dispatch:  # 允许手动启动
 
 jobs:
   build-and-push:
