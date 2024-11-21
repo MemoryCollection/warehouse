@@ -21,7 +21,7 @@ RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/direct/goog
     apt install -y /tmp/chrome.deb && \
     rm /tmp/chrome.deb
 
-# Set working directory
+# Set working directory1
 WORKDIR /app
 COPY app /app
 RUN pip install -r requirements.txt
