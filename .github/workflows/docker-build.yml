@@ -24,30 +24,6 @@ jobs:
         run: |
           docker build -t memorycollection/iptv:latest .
 
-      # 测试 Python 无头浏览器是否能运行
-      - name: Test Python Headless Chrome
-        run: |
-          # 创建一个简单的 Python 脚本测试无头浏览器
-          echo '
-          from selenium import webdriver
-          from selenium.webdriver.chrome.options import Options
-          options = Options()
-          options.add_argument("--headless")  # 无头模式
-          options.add_argument("--no-sandbox")
-          options.add_argument("--disable-dev-shm-usage")
-          options.add_argument("--remote-debugging-port=9222")
-          options.add_argument("--disable-gpu")
-          options.add_argument("--disable-software-rasterizer")
-          options.add_argument("--start-maximized")
-          driver = webdriver.Chrome(options=options)
-          driver.get("https://www.google.com")
-          print("Successfully opened Google!")
-          driver.quit()
-          ' > test_headless.py
-
-          # 运行该测试脚本
-          docker run --rm -v $PWD:/app memorycollection/iptv:latest python /app/test_headless.py
-
       # 推送 Docker 镜像到 Docker Hub
       - name: Push Docker Image
         run: |
