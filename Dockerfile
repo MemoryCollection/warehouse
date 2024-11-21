@@ -1,21 +1,28 @@
-# 使用 selenium/standalone-chrome 镜像作为基础镜像
-FROM selenium/standalone-chrome:latest
+FROM python:latest
 
-# 设置工作目录
-WORKDIR /aap
+# Install required tools and libraries
+RUN apt-get -yqq update && \
+    apt-get -yqq install curl unzip gnupg wget && \
+    apt-get install -yqq libglib2.0-0 libx11-6 libnss3
 
-# 更新包管理器并安装 Python 和 pip
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    && apt-get clean
+# Set ChromeDriver version
+ENV CHROMEDRIVER_VERSION 126.0.6478.61
 
-# 安装所需的 Python 包
-RUN pip3 install --no-cache-dir \
-    requests \
-    beautifulsoup4 \
-    selenium \
-    PyGithub
+# Install Chrome WebDriver
+RUN mkdir -p /opt/chromedriver-${CHROMEDRIVER_VERSION} && \
+    curl -sS -o /tmp/chromedriver_linux64.zip https://storage.googleapis.com/chrome-for-testing-public/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip && \
+    unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver-${CHROMEDRIVER_VERSION} && \
+    rm /tmp/chromedriver_linux64.zip && \
+    chmod +x /opt/chromedriver-${CHROMEDRIVER_VERSION}/chromedriver-linux64/chromedriver && \
+    ln -fs /opt/chromedriver-${CHROMEDRIVER_VERSION}/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 
-# 设置容器启动时的默认命令
-CMD ["bash"]
+# Install Google Chrome
+RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt install -y /tmp/chrome.deb && \
+    rm /tmp/chrome.deb
+
+# Set working directory
+WORKDIR /app
+
+# Set container to idle on start
+CMD ["tail", "-f", "/dev/null"]
