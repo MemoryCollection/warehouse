@@ -7,7 +7,9 @@ ENV CHROMEDRIVER_VERSION ${CHROME_VERSION}
 # Install required tools and libraries
 RUN apt-get -yqq update && \
     apt-get -yqq install --no-install-recommends \
-    curl unzip gnupg wget libglib2.0-0 libx11-6 libnss3 libgdk-pixbuf2.0-0 libx11-xcb1 libxcomposite1 libxrandr2 libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 && \
+    curl unzip gnupg wget libglib2.0-0 libx11-6 libnss3 \
+    libgdk-pixbuf2.0-0 libx11-xcb1 libxcomposite1 libxrandr2 \
+    libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 libdrm2 && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Chrome WebDriver
