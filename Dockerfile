@@ -19,9 +19,10 @@ RUN mkdir -p /opt/chromedriver-${CHROMEDRIVER_VERSION} && \
     ln -fs /opt/chromedriver-${CHROMEDRIVER_VERSION}/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 
 # Install Google Chrome version 131.0.6778.85
-RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_131.0.6778.85-1_amd64.deb && \
-    apt install -y /tmp/chrome.deb && \
-    rm /tmp/chrome.deb
+RUN curl -sS -o /tmp/chrome-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip && \
+    unzip -qq /tmp/chrome-linux64.zip -d /opt/google-chrome-${CHROME_VERSION} && \
+    rm /tmp/chrome-linux64.zip && \
+    ln -fs /opt/google-chrome-${CHROME_VERSION}/chrome-linux64/chrome /usr/local/bin/google-chrome-stable
 
 # Set working directory
 WORKDIR /app
