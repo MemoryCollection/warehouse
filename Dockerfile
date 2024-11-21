@@ -7,7 +7,7 @@ ENV CHROMEDRIVER_VERSION ${CHROME_VERSION}
 # Install required tools and libraries
 RUN apt-get -yqq update && \
     apt-get -yqq install --no-install-recommends \
-    curl unzip gnupg wget libglib2.0-0 libx11-6 libnss3 && \
+    curl unzip gnupg wget libglib2.0-0 libx11-6 libnss3 libgdk-pixbuf2.0-0 libx11-xcb1 libxcomposite1 libxrandr2 libasound2 libatk-bridge2.0-0 libatk1.0-0 libcups2 && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Chrome WebDriver
@@ -31,5 +31,5 @@ COPY app /app
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set container to idle on start
+# Set container to idle on start (or modify to start your application)
 CMD ["tail", "-f", "/dev/null"]
