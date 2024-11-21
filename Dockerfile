@@ -23,6 +23,9 @@ RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/direct/goog
 
 # Set working directory
 WORKDIR /app
+COPY app /app
+RUN pip install -r requirements.txt
+
 
 # Set container to idle on start
 CMD ["tail", "-f", "/dev/null"]
