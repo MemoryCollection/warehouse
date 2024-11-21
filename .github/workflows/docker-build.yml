@@ -19,14 +19,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 构建 Docker 镜像并打上版本标签
+      # 构建 Docker 镜像
       - name: Build Docker Image
         run: |
-          docker build -t memorycollection/iptv:latest -t memorycollection/iptv:1.1.1.2 .
-      
+          docker build -t memorycollection/iptv:latest .
+
       # 推送 Docker 镜像到 Docker Hub
       - name: Push Docker Image
         run: |
           docker push memorycollection/iptv:latest
-          docker push memorycollection/iptv:1.1.1.2
 
