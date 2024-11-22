@@ -29,8 +29,8 @@ RUN curl -sS -o /tmp/chrome-linux64.zip https://storage.googleapis.com/chrome-fo
     ln -fs /opt/google-chrome-${CHROME_VERSION}/chrome-linux64/chrome /usr/local/bin/google-chrome-stable
 
 # Set pip to use Tsinghua University mirror
-RUN mkdir -p /etc/pip.conf && \
-    echo "[global]\nindex-url = https://pypi.tuna.tsinghua.edu.cn/simple" > /etc/pip.conf
+RUN echo "[global]\nindex-url = https://pypi.tuna.tsinghua.edu.cn/simple" > /etc/pip.conf
+
 
 # Set working directory
 WORKDIR /app
