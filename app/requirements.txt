@@ -3,3 +3,4 @@ PyGithub
 beautifulsoup4
 selenium
 aiohttp
+playwright
