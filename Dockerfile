@@ -38,6 +38,7 @@ COPY app /app
 
 # Install Python dependencies
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt && pip install --no-cache-dir selenium
+RUN pip install playwright[chromium]
 
 # Set container to idle on start (or modify to start your application)
 CMD ["tail", "-f", "/dev/null"]
