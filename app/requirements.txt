@@ -4,3 +4,4 @@ beautifulsoup4
 selenium
 aiohttp
 playwright
+m3u8
