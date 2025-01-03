@@ -1,0 +1,28 @@
+name: Docker Login Example
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Print Docker credentials (for debugging only, DO NOT USE IN PRODUCTION)
+      run: |
+        echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
+        echo "DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}"
+      # 注意：直接在日志中打印密码是不安全的，这里仅作为示例。
+      # 在生产环境中，你应该避免这样做。
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      # 警告：这种方法仍然会将敏感信息暴露在日志中，不建议使用。
+      # 如果只是需要调试，请确保工作流的日志不会被公开访问。
+
+    # 其他步骤，例如 Docker 登录、构建和推送等...
+    # - name: Login to Docker Hub
+    #   run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+    # ...
